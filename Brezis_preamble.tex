@@ -1,0 +1,133 @@
+% Page layout and typography follow the Real Analysis notes template.
+\usepackage{amsmath,amssymb,latexsym,mathtools,amsthm}
+\usepackage{array}
+\usepackage{graphicx}
+\usepackage{fontspec}
+\usepackage{setspace}
+\usepackage[a4paper,margin=25mm]{geometry}
+\usepackage{tikz}
+\usepackage{bm}
+\usepackage{float}
+\usepackage{ulem}
+\usepackage{amsfonts}
+\usepackage{xcolor}
+\usepackage{esint}
+\usepackage{xparse}
+\usepackage{caption}
+\usepackage{varwidth}
+\usepackage[most]{tcolorbox}
+\usepackage{hyperref}
+\usepackage{fancyhdr}
+\usepackage{enumitem}
+\usepackage{titlesec}
+
+\definecolor{darkblue}{RGB}{4,8,44}
+\definecolor{theoremblue}{RGB}{20,42,82}
+\definecolor{theoremtint}{RGB}{224,233,247}
+\definecolor{propositionblue}{RGB}{35,82,153}
+\definecolor{propositiontint}{RGB}{226,237,252}
+\definecolor{lemmablue}{RGB}{35,102,132}
+\definecolor{lemmatint}{RGB}{224,241,248}
+\definecolor{corollaryblue}{RGB}{65,94,151}
+\definecolor{corollarytint}{RGB}{233,239,250}
+\definecolor{definitionblue}{RGB}{39,75,128}
+\definecolor{definitiontint}{RGB}{241,246,253}
+\definecolor{exampleblue}{RGB}{48,112,151}
+\definecolor{exampletint}{RGB}{234,245,250}
+\setstretch{1.25}
+\setlength{\parindent}{2em}
+\setlength{\parskip}{0.25em}
+\setlength{\headheight}{14pt}
+\setlist{itemsep=0.25em,topsep=0.35em}
+
+\hypersetup{
+  colorlinks=true,
+  linkcolor=darkblue,
+  urlcolor=darkblue,
+  citecolor=darkblue
+}
+
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[LE,RO]{\small\thepage}
+\fancyhead[LO]{\small\nouppercase{\rightmark}}
+\fancyhead[RE]{\small 泛函分析笔记}
+\renewcommand{\headrulewidth}{0.4pt}
+\renewcommand{\chaptermark}[1]{\markboth{#1}{}}
+\renewcommand{\sectionmark}[1]{\markright{#1}}
+
+\titleformat{\chapter}[display]
+  {\normalfont\huge\bfseries\color{darkblue}}
+  {}{0pt}{\Huge}
+\titleformat{\section}
+  {\normalfont\Large\bfseries\color{darkblue}}
+  {}{0pt}{}
+\titleformat{\subsection}
+  {\normalfont\large\bfseries\color{darkblue}}
+  {}{0pt}{}
+
+\newcommand{\NoteChapter}[2]{%
+  \setcounter{chapter}{#1}%
+  \refstepcounter{chapter}%
+  \setcounter{section}{0}%
+  \chapter*{#2}%
+  \addcontentsline{toc}{chapter}{#2}%
+}
+\newcommand{\NoteSection}[2]{%
+  \setcounter{section}{\numexpr#1-1\relax}%
+  \refstepcounter{section}%
+  \setcounter{subsection}{0}%
+  \section*{\thesection\quad #2}%
+  \addcontentsline{toc}{section}{\texorpdfstring{\thesection\quad #2}{\thesection\space #2}}%
+}
+
+% Statement environments share one chapter.section.item counter.
+\newcounter{thmsubsec}[section]
+\renewcommand{\thethmsubsec}{\thesection.\arabic{thmsubsec}}
+\newcommand{\StatementBoxBegin}[5]{%
+  \par\smallskip
+  \refstepcounter{thmsubsec}%
+  \begin{tcolorbox}[
+    enhanced,
+    breakable,
+    colframe=#3,
+    colback=#5,
+    colbacktitle=#4,
+    coltitle=darkblue,
+    boxrule=0.65pt,
+    arc=1mm,
+    left=2mm,
+    right=2mm,
+    top=1mm,
+    bottom=1mm,
+    fonttitle=\bfseries,
+    title={#1~\thethmsubsec\IfValueT{#2}{\quad (#2)}}
+  ]%
+}
+\newcommand{\StatementBoxEnd}{\end{tcolorbox}\par\smallskip}
+\NewDocumentEnvironment{theorem}{o}{\StatementBoxBegin{定理}{#1}{theoremblue}{theoremtint}{white}}{\StatementBoxEnd}
+\NewDocumentEnvironment{proposition}{o}{\StatementBoxBegin{命题}{#1}{propositionblue}{propositiontint}{white}}{\StatementBoxEnd}
+\NewDocumentEnvironment{lemma}{o}{\StatementBoxBegin{引理}{#1}{lemmablue}{lemmatint}{white}}{\StatementBoxEnd}
+\NewDocumentEnvironment{corollary}{o}{\StatementBoxBegin{推论}{#1}{corollaryblue}{corollarytint}{white}}{\StatementBoxEnd}
+\NewDocumentEnvironment{definition}{o}{\StatementBoxBegin{定义}{#1}{definitionblue}{definitiontint}{white}}{\StatementBoxEnd}
+\NewDocumentEnvironment{example}{o}{\StatementBoxBegin{例}{#1}{exampleblue}{exampletint}{white}}{\StatementBoxEnd}
+\NewDocumentEnvironment{exercise}{o}{\StatementBoxBegin{练习}{#1}{propositionblue}{propositiontint}{white}}{\StatementBoxEnd}
+\NewDocumentEnvironment{problem}{o}{\StatementBoxBegin{问题}{#1}{corollaryblue}{corollarytint}{white}}{\StatementBoxEnd}
+\NewDocumentEnvironment{axiom}{o}{\StatementBoxBegin{公理}{#1}{theoremblue}{theoremtint}{white}}{\StatementBoxEnd}
+\NewDocumentEnvironment{conjecture}{o}{\StatementBoxBegin{猜想}{#1}{lemmablue}{lemmatint}{white}}{\StatementBoxEnd}
+
+\newtcolorbox{remarkbox}{
+  enhanced,
+  breakable,
+  colframe=darkblue,
+  colback=white,
+  boxrule=0.5pt,
+  arc=1mm,
+  left=2mm,
+  right=2mm,
+  top=1mm,
+  bottom=1mm,
+  before skip=0.5em,
+  after skip=0.5em
+}
+

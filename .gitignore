@@ -1,0 +1,19 @@
+# LaTeX build artifacts
+*.aux
+*.log
+*.out
+*.toc
+*.synctex.gz
+*.fls
+*.fdb_latexmk
+*.xdv
+
+# Temporary previews and converted Markdown cache
+Brezis_*preview*.png
+Brezis_layout_check-*.png
+Brezis_notes_rebuilt.pdf
+Brezis_notes.markdown.lua
+_markdown_*/
+
+# Source textbook (large reference file; keep local, not in Git)
+Functional Analysis, Sobolev Spaces and Partial Differential Equations (Haim Brezis) (Z-Library).pdf

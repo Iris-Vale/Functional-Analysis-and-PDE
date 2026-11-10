@@ -1,0 +1,243 @@
+\NoteChapter{5}{Chapter 6 紧算子与谱分解定理}
+\NoteSection{1}{基本知识}
+
+
+\begin{definition}[紧算子]
+    \label{def:compact_operator}
+    设$E,F$是Banach空间.
+    有界线性算子$T : \mathcal{L}(E,F)$若满足$T(B_E)$是$F$中的相对紧集（闭包为$F$中紧集），
+    则$T$ 
+    称为紧算子.
+    $E \to F$的所有紧算子的集合记作$\mathcal{K}(E,F)$.
+\end{definition}
+
+\begin{remarkbox}
+\textbf{Remark}：紧算子定义的本质是，将有界集映为相对紧集.
+设$A$是$E$中的有界集，则存在$M>0$，使得$A \subset MB_E$，
+因此$T(A) \subset MT(B_E)$.
+相对紧集的子集仍然是相对紧集，
+因此$T(A)$是$F$中的相对紧集.
+\end{remarkbox}
+
+\begin{theorem}
+    $\mathcal{K}(E,F)$是$\mathcal{L}(E,F)$的闭子空间（按算子范数）.
+\end{theorem}
+
+
+\begin{proof}
+    子空间是显然的.
+    设$T_n \in \mathcal{K}(E,F)$，且$T_n \to T \in \mathcal{L}(E,F)$.
+    我们要证明$T$是紧算子.
+    即证$T(B_E)$是$F$中的相对紧集.
+
+    已知$T_n(B_E)$是相对紧集，
+    因此是完全有界集.
+    对于任意$\varepsilon>0$，存在有限个点$\{y_1,\dots,y_m\} \subset T_n(B_E)$，使得
+    \[
+        T_n(B_E) \subset \bigcup_{j=1}^m B_F(y_j,\varepsilon).
+    \]
+    由于$T_n \to T$，存在$N>0$，当$n>N$时，有$\|T_n-T\|<\varepsilon$.
+    也就是说，
+    对于任意$x \in B_E$,
+    $|T(x) - T_n(x)| \le \varepsilon \|x\| \le \varepsilon$.
+    因此
+    \[
+        T(B_E) \subset T_n(B_E) + B_F(0,\varepsilon)
+        \subset \bigcup_{j=1}^m B_F(y_j,2\varepsilon),
+    \]
+    这说明了$T(B_E)$完全有界集，因此是相对紧集.
+    因此$T\in\mathcal{K}(E,F)$. 
+\end{proof}
+
+    \begin{definition}[有限秩算子]
+        \label{def:finite_rank_operator}
+        设$E,F$是Banach空间.
+        若算子$T : E \to F$的值域$T(E)$是有限维的，
+        则称$T$为有限秩算子.
+    \end{definition}
+
+    \begin{remarkbox}
+    \textbf{Remark}：有限秩算子是有限维空间线性变换的最直接推广，
+    而紧算子则是更重要的推广.
+    有限秩算子一定是紧算子.
+    这是因为，
+    若$T$是有限秩算子，
+    则$T(B_E)$是有限维空间中的有界集，
+    因此是相对紧集.
+    \end{remarkbox}
+
+    \begin{corollary}
+        设$\{T_n\}$是一列有限秩算子，
+        $T_n \to T$，则$T$是紧算子.
+    \end{corollary}
+
+    \begin{theorem}[Schauder]
+        若$T \in \mathcal{K}(E,F)$，
+        则其共轭算子$T^\star \in \mathcal{K}(F^\star,E^\star)$.
+    \end{theorem}
+
+    \begin{proof}
+            设$B_{F^\star}$是$F^\star$中的单位闭球.
+    我们要证明$T^\star(B_{F^\star})$是$E^\star$中的相对紧集.
+    任取$B_{F^\star}$中点列$\{v_n\}$，
+    去证$T^\star(v_n)$存在收敛子列.
+
+    记$K = \overline{T(B_E)}$是紧集.
+    将$\{v_n\}$看成其在$K$上的限制，
+    它是$C(K)$中的点列，
+    而且一致有界.
+    由Arzelà–Ascoli定理，
+    存在子列$\{v_{n_k}\}$一致收敛到某个连续映射$v \in C(K)$，即
+
+    \[
+        \sup_{y \in K} |v_{n_k}(y) - v(y)| \to 0.
+    \]
+
+    将$y$替换为$T(u), u \in B_E$
+
+    \[
+        \sup_{u \in B_E} |v_{n_k}(T(u)) - v(T(u))| \to 0.
+    \]
+
+    根据共轭算子的定义，可改写成
+
+    \[
+        \sup_{u \in B_E} |T^\star(v_{n_k})(u) - T^\star(v)(u)| \to 0.
+    \]
+
+    这说明$T^\star(v_{n_k})$在$E^\star$中（依算子范数）收敛到$T^\star(v)$.
+    因此$T^\star(B_{F^\star})$是相对紧集.   
+    \end{proof}
+
+
+\NoteSection{2}{Riesz-Fredholm理论}
+
+我们有以下两个熟知的结论：
+
+\begin{lemma}[Riesz引理]
+    设$E$是赋范线性空间，$M$是$E$的闭子空间，且$M \neq E$.
+    则对于任意$\varepsilon \in (0,1)$，存在$x_\varepsilon \in E$，使得
+    \[
+        \|x_\varepsilon\| = 1,
+        \quad
+        d(x_\varepsilon,M) \ge 1 - \varepsilon.
+    \]
+\end{lemma}
+
+\begin{theorem}[Riesz]
+    设$E$是赋范线性空间，$B_E$是紧集，
+    则$E$是有限维的.
+\end{theorem}
+
+在有限维线性空间中，
+设$A$是线性算子，
+线性方程$Ax = b$的解与$A^\star$的性质密切相关：
+
+(1) 若$Ax= 0$只有零解，则$A^\star x = 0$也只有零解.
+
+(2) 若$Ax = 0$有非零解，则$A^\star x = 0$也有非零解.
+方程组$Ax = b$有解当且仅当$b$与$A^\star x = 0$的解正交.
+
+我们希望把这些结论推广到无限维空间中的紧线性算子$T$上：
+
+
+\begin{theorem}[Fredholm择一定理]
+    设$T \in \mathcal{K}(E)$，则：
+
+    (a) $N(I-T)$是有限维的；
+
+    (b) $R(I-T)$是闭的；$R(I-T) = N((I-T)^\star)^{\perp}$；
+
+    (c) $N(I-T) = \{0\}$当且仅当$R(I-T) = E$；
+
+    (d) $\dim N(I-T) = \dim N((I-T)^\star)$.
+\end{theorem}
+
+\begin{proof}
+    
+    (a) 记$E_1 = N(I-T)$，
+    对于$u \in B_{E_1} \subset B_E$，
+    有$u = Tu \in T(B_E)$.
+    因此，$B_{E_1} \subset T(B_E)$.
+    由于$T$是紧算子，$T(B_E)$是相对紧集，
+    因此$B_{E_1}$是相对紧集.
+    由Riesz定理，$E_1$是有限维的.
+
+    \medskip
+
+    (b) 设$f_n = u_n - T(u_n) \to f$，
+    要证$f \in R(I-T)$.
+    即：存在$g \in E$，使得$g - T(g) = f$.
+
+    记$d_n = d(u_n , N(I-T))$.
+    因此$N(I-T)$有限维，
+    存在$v_n \in N(I-T)$使得$d_n = \|u_n - v_n\|$.
+
+    先用反证法证明$\{d_n\}$有界（注意$\|u_n\|$本身不一定有界）.
+    假设它无界，
+    则存在子列$d_{n_k}$，
+    使得$d_{n_k} \to \infty$.
+    这时候考虑$u_n - v_n$对应的单位向量$w_n = \dfrac{u_n - v_n}{\|u_n - v_n\|}$的收敛性.
+    一方面，因为
+    \[
+    f_n = (u_n - v_n) - T(u_n - v_n) \to f
+    \]
+
+    所以$w_n - T(w_n) \to 0$.
+    也就是说$d (w_n , N(I-T)) \to 0$.
+    但另一方面，按$w_n$的定义，$d (w_n , N(I-T)) = 1$. 矛盾.
+
+    现在知道了$\{d_n\}$有界.
+    由于$T$是紧算子，$T(u_n - v_n)$有收敛子列.
+    设$T(u_{n_k} - v_{n_k}) \to \ell$.
+    又因为$(u_n - v_n) - T(u_n - v_n) \to f$，
+    所以$(u_n - v_n) \to f+\ell$. 于是$f + \ell$就是我们一开始想要的$g$.
+
+    证明了$R(I-T)$是闭子空间，我们就有：
+    \[
+    R(I-T) = N(I-T^\star)^\perp \quad R(I-T^\star) = N(I - T)^\perp
+    \]
+
+    \medskip
+
+    (c) $\Rightarrow$：反证法.
+    假设$I-T$是单射，但不是满射，
+    设$E_n = (I-T)^n (E)$.
+    则$\{E_n\}$是严格单调递减的集合列.
+    由Riesz引理，
+    存在$u_n \in E_n$，
+    使得$\|u_n\| = 1$且$d(u_n, E_{n+1}) > 1/2$.
+    则
+    \[
+    T (u_n - u_m) = -(I-T) (u_n - u_m) + (u_n - u_m) 
+    \]
+
+    不妨设$n> m$，
+    则$-(I-T) (u_n - u_m) + u_n \in E_{m+1}$，
+    $T (u_n - u_m) \ge d (u_m , E_{m+1}) > 1/2$.
+    这与$T$是紧算子矛盾.
+
+    $\Leftarrow$：
+    若$R(I-T) = E$，
+    则$N(I-T^\star) = R(I-T)^\perp = \{0\}$.
+    利用$\Rightarrow$的结论，
+    $R(I-T^\star) = E^\star$.
+    于是
+    $N(I-T) = R(I-T^\star)^\perp = \{0\}$.
+\end{proof}
+
+
+\NoteSection{1}{紧算子的谱}
+
+\begin{definition}[预解集]
+    设$T \in \mathcal{L}(E)$，
+    则$T$的预解集$\rho (T)$定义为
+    \[
+        \rho(T) = \{\lambda \in \mathbb{R} : \lambda I - T \text{是双射}\}.
+    \]
+
+    预解集的补集$\sigma (T) = E \backslash \rho(T)$称为$T$的谱集$\sigma(T)$.
+    谱集中的元素若还满足$N(\lambda I - T) = \{0\}$，则称为特征值.
+    特征值的集合记作$EV(T)$.
+    
+\end{definition}

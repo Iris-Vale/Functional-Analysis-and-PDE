@@ -1,0 +1,131 @@
+\NoteChapter{2}{Chapter 3}
+
+\section*{引入}
+\addcontentsline{toc}{section}{引入}
+
+在无穷维空间中，闭集不一定是紧集. 例如，$\ell^2$ 的一列标准基 $e_n$，两两之间距离为$\sqrt2$，因此没有依范数收敛的子列. 但是对于任意的连续（有界）线性泛函 $f\in E^\star$，数列 $f(e_n)$ 必定是收敛的. 也就是说，如果把连续线性泛函$f$当作对$\ell^2$的“观察工具”，会观察到与$\ell^2$通常的范数拓扑不同的拓扑性质. 在这种拓扑中，我们其实是以$f(x),f(y)$的“接近程度”来描述$x,y\in \ell^2$的“接近程度”.
+
+\subsection*{本章路线图}
+\addcontentsline{toc}{subsection}{本章路线图}
+\begin{enumerate}
+\item \textbf{3.1–3.2：定义弱拓扑。} 先学“由一组测量生成最弱拓扑”，再把测量选成所有连续线性泛函，得到弱拓扑。
+\item \textbf{3.3：弱拓扑与凸性。} 闭凸集能由线性泛函分开，因此范数闭凸集也是弱闭；这让凸函数在弱极限下仍有良好下半连续性。
+\item \textbf{3.4：弱星拓扑与紧性。} 对偶空间只用原空间向量来测试，单位球因此有 Banach–Alaoglu 紧性。
+\item \textbf{3.5：自反性。} 当 $E$ 与 $E^{\star\star}$ 没有多出新方向时，对偶紧性回到原空间，给出有界序列的弱收敛子列，也支撑变分法的直接方法。
+\item \textbf{3.6–3.7：可分性与一致凸性。} 可分性使有界球上的弱拓扑可度量；一致凸性则把几何上的“中点明显向内”转成自反性和强收敛结论。
+\end{enumerate}
+
+\NoteSection{1}{最弱拓扑}
+
+设 $X$ 是集合，$I$ 是指标集；$Y_i$ 是一族拓扑空间，$\phi_i:X\to Y_i$ 是一族映射。这些映射在 $X$ 上生成的\textbf{最弱拓扑（初始拓扑）}，定义为由所有集合 $\phi_i^{-1}(V_i)$ 生成的拓扑，其中$V_i$是$Y_i$中开集. 换句话说，就是使得所有$\phi_i$都连续的最小的拓扑.
+
+在最弱拓扑下，$X$的每个开集都可以表示为$\bigcup_{arbitrary} \bigcap_{finite} \phi_i^{-1}(V_i)$. 自然地，所有能表示为$\bigcap_{finite} \phi_i^{-1}(V_i)$的开集构成最弱拓扑的拓扑基. 如果限定$V_i$是$Y_i$中点$\phi_i (x)$的邻域，则$\bigcap_{finite} \phi_i^{-1}(V_i)$是$x$的邻域基.
+
+\subsection*{两个最重要的判别法：}
+\addcontentsline{toc}{subsection}{两个最重要的判别法：}
+\begin{itemize}
+\item $x_n$ 在$\phi_i$生成的最弱拓扑下收敛于 $x$，当且仅当对每个 $i$，$\phi_i(x_n)\to\phi_i(x)$.
+\item 设 $Z$ 是拓扑空间. 映射 $\psi:Z\to X$ 连续，当且仅当对每个 $i$，复合映射 $\phi_i\circ\psi:Z\to Y_i$ 连续。
+\end{itemize}
+
+\subsection*{例子：逐坐标收敛。}
+\addcontentsline{toc}{subsection}{例子：逐坐标收敛。}
+在 $X=\mathbb R^{\mathbb N}$ 中令 $\phi_k(x)=x_k$，其中 $x=(x_1,x_2,\ldots)$。$Y_k=\mathbb R$ 取通常拓扑。$\phi_k(x)$生成的最弱拓扑下，序列收敛就是逐坐标收敛。例如， $x^{(n)}=e_n$ 逐坐标收敛于 $0$. 但$e_n$与$0$的（范数）距离始终为$1$.
+
+设 $Z$ 是某个拓扑空间. 映射 $\psi:Z\to\mathbb R^{\mathbb N}$ 连续，当且仅当每个坐标函数 $z\mapsto(\psi(z))_k$ 从 $Z$ 到通常拓扑的 $\mathbb R$ 连续。此时，向量值函数的连续即为每个坐标函数（一系列实值函数）的连续。
+
+\subsection*{从区分不同点的角度讲：}
+\addcontentsline{toc}{subsection}{从区分不同点的角度讲：}
+设 $Y_i$ 都是豪斯多夫（Hausdorff）空间。$X$赋予最弱拓扑后也是豪斯多夫空间当且仅当存在 $i$ 使 $\phi_i(x)\ne\phi_i(y)$。也就是说，$X$中任意两点$x,y$在最弱拓扑下能被区分开，当且仅当它们能被某个$\phi_i$区分开.
+
+\NoteSection{2}{弱拓扑}
+设 $E$ 是Banach空间。$E$ 上的\textbf{弱拓扑} $\sigma(E,E^\star)$定义为对偶空间$E^\star$生成的最弱拓扑. 也就是说，我们以连续线性泛函来观察$E$. 为了与最弱拓扑的记号衔接，我们可以将$f$写成角标，定义$\phi_f (x) = f(x)$.
+
+我们特别指出弱拓扑下$x_0\in E$的邻域基有如下形式：
+\[
+\bigcap_{j=1}^m\{x\in E:|f_j(x)-f_j(x_0)|<\varepsilon_j\},
+\quad f_j\in E^\star,\quad \varepsilon_j>0,
+\]
+这是因为以$f_j(x_0)$为中心的开球族构成$f_j(x_0)$的邻域基.
+
+\begin{remarkbox}\textbf{My Remark}：注意每个集合$\{x\in E:|f_j(x)-f_j(x_0)|<\varepsilon_j\}$是$E$上的一根“直带”. 直带的中轴线经过点$x$. 邻域基的形状即是有限根“直带”的重叠部分.\end{remarkbox}
+
+对序列 $x_n\in E$ 和 $x\in E$，
+\[
+x_n\rightharpoonup x
+\quad\Longleftrightarrow\quad
+f(x_n)\to f(x)\quad\text{对每个 }f\in E^\star.
+\]
+上式中的 $f(x_n)\to f(x)$ 是实数通常意义下的收敛。
+
+弱拓扑比范数拓扑粗。范数收敛一定弱收敛，但反过来通常不成立。弱拓扑中的开集一定是范数拓扑中的开集，弱拓扑中的闭集一定是范数拓扑中的闭集，但反过来不一定成立. 例如，无穷维空间中的单位球面在范数拓扑下是闭集，但在弱拓扑下不是闭集，而且它的闭包是整个单位闭球.
+
+\begin{remarkbox}\textbf{My Remark}：不能通过有限根直带相交的方式，将单位球面与原点分离开.\end{remarkbox}
+
+弱收敛列必有界；范数在弱极限处下半连续；有限维时弱拓扑与范数拓扑相同。
+
+\NoteSection{3}{弱拓扑与凸集}
+对于一般的集合，范数开/闭与弱开/闭不等价。但是对于凸集，它在范数拓扑下是闭集当且仅当它在弱拓扑下是闭集. 这是由 Hahn–Banach 分离定理所保证：对于某个闭凸集外的一个点，必定存在连续线性泛函，将这个点与闭凸集区分开。也就是说，范数闭凸集的每个外点，都能通过一个弱开集将其与闭凸集区分开。
+
+\begin{corollary}[Mazur 推论]
+，若 $x_n$ 弱收敛到 $x$，则可以从$\{x_n\}$的凸包中取一子列$y_n$，使得$y_n$强收敛于$x$.（否则，$x$位于$\{x_n\}$的凸包的闭包之外，能用仿射超平面分开.）
+\end{corollary}
+
+\NoteSection{4}{弱星拓扑}
+设$E$是Banach空间。对于$E$的对偶空间$E^\star$，也可以自然地定义弱拓扑$\sigma (E^\star, E^{\star\star})$。虽然我们可以建立$E \to E^{\star\star}$的等距嵌入，但是一般不是同构。因此，$E^\star$的由$E$生成的最弱拓扑$\sigma (E^{\star} , E)$一般不同于弱拓扑。我们称其为$E^\star$ 上的\textbf{弱星拓扑}，它一般比$E^{\star}$的弱拓扑还要弱。
+
+\subsection*{弱星拓扑有一些性质与弱拓扑是类似的：}
+\addcontentsline{toc}{subsection}{弱星拓扑有一些性质与弱拓扑是类似的：}
+\begin{enumerate}
+\item $E^\star$赋予弱星拓扑是Hausdorff空间（这一点是很自然的，不需要使用Hahn-Banach定理）。
+\item 弱星拓扑下$f_0 \in E^{\star}$一个邻域基：
+\[
+\bigcap_{j=1}^m\{f \in E^{\star}:|f(x)-f_0(x_j)|<\varepsilon\},
+\quad x_i \in E,\quad \varepsilon>0,
+\]
+\item 弱星收敛是逐点收敛，即：
+\[
+f_n\overset\star\rightharpoonup f
+\quad\Longleftrightarrow\quad
+f_n(x)\to f(x)\quad\text{对每个 }x\in E.
+\]
+\item 若$f_n \rightharpoonup f$，则$f_n \overset\star\rightharpoonup f$.
+\end{enumerate}
+
+\begin{remarkbox}\textbf{Remark}：在有限维空间中，范数拓扑、弱拓扑与弱星拓扑等价.\end{remarkbox}
+
+\begin{theorem}[Banach–Alaoglu 定理]
+$E^\star$ 的闭单位球 $B_{E^\star}=\{f\in E^\star:\|f\|_{E^\star}\le1\}$ 在弱星拓扑下是紧集。
+\end{theorem}
+
+\begin{remarkbox}\textbf{核心思想}：利用弱星收敛就是逐点收敛. 将$E^*$的单位闭球嵌入到$E \to \mathbb{R}$的函数空间$Y = \mathbb{R}^{E}$中。这个空间赋予乘积拓扑，限制在$B_{E^\star}$上就是弱星拓扑。从乘积拓扑的意义上去证$B_{E^\star}$是紧集。\end{remarkbox}
+
+\NoteSection{5}{自反空间}
+典范映射 $J:E\to E^{\star\star}$ 定义为 $(Jx)(f)=f(x)$（$x\in E$、$f\in E^\star$），把向量 $x$ 变成一个作用在 $E^\star$ 上的连续线性泛函。Hahn–Banach 保证 $\|Jx\|_{E^{\star\star}}=\|x\|_E$，所以 $J$ 是等距嵌入。若 $J$ 满射，就称 $E$ \textbf{自反}。
+
+\textbf{常见的自反空间}：有限维空间，$L^p$空间（$1 < p < \infty$），Hilbert空间。
+
+\textbf{常见的非自反空间}：$L^1$空间，$L^\infty$空间，$C(K)$空间（紧集上的连续函数空间）。
+
+\textbf{Kakutani 定理}表明，自反性本质上是一种拓扑性质：
+\begin{theorem}[Kakutani 定理]
+$E$ 自反当且仅当 $B_E$ 在 $E$ 的弱拓扑 $\sigma(E,E^\star)$ 下紧。
+\end{theorem}
+
+\NoteSection{6}{可分性：用可数多个测量控制有界球}
+若 $E^\star$ 可分，则 $E$ 可分；但 $E$ 可分一般不能推出 $E^\star$ 可分（$L^1(0,1)$ 与 $L^\infty(0,1)$ 是例子）。自反时，两者可分性等价。
+
+可分性与弱拓扑的度量化相关：$E$ 可分当且仅当 $B_{E^\star}$ 上的相对弱星拓扑 $\sigma(E^\star,E)$ 可由某个度量产生；$E^\star$ 可分当且仅当 $B_E$ 上的相对弱拓扑 $\sigma(E,E^\star)$ 可由某个度量产生。“相对拓扑”指把整个空间的开集与所讨论的单位球相交后得到的拓扑。弱星紧且可度量时，任何有界对偶序列都有弱星收敛子列。这也是证明自反空间有弱收敛子列的关键辅助步骤。
+
+\NoteSection{7}{一致凸性：中点不能一直贴着球面}
+范数 $\|\cdot\|_E$ 称为\textbf{一致凸}，若对每个 $\varepsilon>0$，存在 $\delta>0$，使所有 $x,y\in B_E$ 只要 $\|x-y\|_E\ge\varepsilon$，就有 $\|(x+y)/2\|_E\le1-\delta$。也就是说，单位球内相距明显的两点，其中点会统一地落在单位球内部一段正距离。Hilbert 空间和 $L^p,1<p<\infty$ 一致凸；带平边的 $\ell^1$、$\ell^\infty$ 平面单位球不一致凸。
+
+\begin{theorem}[Milman–Pettis 定理]
+一致凸 Banach 空间自反。
+\end{theorem}
+
+另一个重要判别是：若 $x_n$ 弱收敛到 $x$，且 $\limsup_{n\to\infty}\|x_n\|_E\le\|x\|_E$，则在一致凸空间里 $\|x_n-x\|_E\to0$，也就是实际范数收敛到 $x$。这里弱收敛按每个 $f\in E^\star$ 检验：$f(x_n)\to f(x)$。弱收敛负责确定方向，范数条件和一致凸负责消除剩余的“横向摆动”。
+
+\begin{theorem}[Krein–Šmulian 定理]
+若 $C\subset E^\star$ 是凸集，则 $C$ 在弱星拓扑 $\sigma(E^\star,E)$ 下闭，当且仅当对每个 $r>0$，交集 $C\cap rB_{E^\star}$ 在 $rB_{E^\star}$ 的相对弱星拓扑下闭。这里 $rB_{E^\star}=\{f:\|f\|_{E^\star}\le r\}$。这是把无界集合的闭性拆成有界部分检查；“凸”是定理的重要条件。
+\end{theorem}
