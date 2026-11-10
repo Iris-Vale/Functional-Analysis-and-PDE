@@ -214,7 +214,7 @@
 
     不妨设$n> m$，
     则$-(I-T) (u_n - u_m) + u_n \in E_{m+1}$，
-    $T (u_n - u_m) \ge d (u_m , E_{m+1}) > 1/2$.
+    $\| T (u_n - u_m)\| \ge d (u_m , E_{m+1}) > 1/2$.
     这与$T$是紧算子矛盾.
 
     $\Leftarrow$：
@@ -227,7 +227,7 @@
 \end{proof}
 
 
-\NoteSection{1}{紧算子的谱}
+\NoteSection{3}{紧算子的谱}
 
 \begin{definition}[预解集]
     设$T \in \mathcal{L}(E)$，
@@ -239,5 +239,140 @@
     预解集的补集$\sigma (T) = E \backslash \rho(T)$称为$T$的谱集$\sigma(T)$.
     谱集中的元素若还满足$N(\lambda I - T) = \{0\}$，则称为特征值.
     特征值的集合记作$EV(T)$.
-    
+
 \end{definition}
+
+\begin{proposition}
+    设$T$是有界线性算子，
+    则$T$的谱集$\sigma(T)$是紧的，
+    且$\sigma(T) \subset \{ \lambda \in \mathbb{R} : |\lambda| \leq \|T\| \}$.
+\end{proposition}
+\begin{proof}
+    任取$\lambda > \|T\|$，
+    去证$\lambda I - T$是双射.
+    任取$f \in E$，
+    考虑方程$(\lambda I - T)u = f$.
+    整理，
+    得到$u = \frac{1}{\lambda}(f + T(u))$.
+    注意$u \mapsto \frac{1}{\lambda}(f + T(u))$是压缩映射，
+    根据Banach不动点定理，
+    方程存在唯一的解$u \in E$.
+    这就证明了当$\lambda > \|T\|$时，
+    $\lambda I - T$是双射.
+
+    再证$\rho (T)$是开集.
+    任取$\lambda_0 \in \rho (T)$.
+    对充分小的$\epsilon$，
+    以及实数$\lambda$满足$|\lambda - \lambda_0| < \varepsilon$，
+    我们希望证明下述方程有唯一解：
+    \[
+     (\lambda I - T) u = f
+    \]
+
+    这等价于
+    \[
+    (\lambda_0 I - T) u = f + (\lambda_0 - \lambda) u
+    \]
+
+    由于$\lambda_0 \in \rho (T)$，
+    $\lambda_0 I - T$是双射，
+    因此上式等价于
+    \[
+    u = (\lambda_0 I - T)^{-1} f + (\lambda_0 - \lambda) (\lambda_0 I - T)^{-1} u
+    \]
+
+    因为$|\lambda - \lambda_0| = \varepsilon$是充分小的，
+    所以$u \mapsto (\lambda_0 I - T)^{-1} f + (\lambda_0 - \lambda) (\lambda_0 I - T)^{-1} u$是压缩映射，
+    根据Banach不动点定理，
+    方程存在唯一的解$u \in E$.
+    这就证明了$\rho (T)$是开集.
+\end{proof}
+
+\begin{remarkbox}
+    \textbf{Remark}：
+    对于一般的线性算子$T$，
+    谱点不一定是特征值.
+    也就是说，
+    有可能$N(\lambda I - T) = \{0\}$，
+    但$R(\lambda I - T) \ne E$.
+    不过，当$T$是紧线性算子，
+    情况就很简单，并且类似于有限维空间线性算子.
+
+    \smallskip
+
+    首先，$0$一定是谱点.
+    否则，$T = T - 0I$是双射，
+    $I = T \circ T^{-1}$是紧算子，
+    是不可能的.
+    不过，$0$不一定是特征值点.
+
+    \smallskip
+
+    非零的谱点一定是特征值.
+    否则，$N(T - \lambda I) = \{0\}$，
+    根据紧算子的性质（Fredholm定理），
+    $R(T - \lambda I) = E$，
+    但这样$T - \lambda I$就是双射，
+    $\lambda \in \rho (T)$，
+    矛盾.
+\end{remarkbox}
+
+\begin{lemma}
+    设$T \in \mathcal{K}(E)$，
+    $\{\lambda_n\}$是一列互不相同的实数，$\lambda_n \to \lambda$.
+    若$\lambda_n \in \sigma(T) \backslash \{0\}$，
+    则$\lambda = 0$.
+\end{lemma}
+
+\begin{proof}
+    $\lambda_n$是$T$的一些特征值.
+    仿照有限维空间的情形，
+    可以证明，
+    属于不同特征值的特征元素线性无关.
+    因此，
+    若取每个$\lambda_n$的各一个特征元素$e_n$，
+    记$E_n = \mathrm{span} \{ e_1 , e_2, \cdots , e_n \}$.
+    则$\{E_n \}$是严格单调递增的有限维子空间列.
+
+    借鉴Fredholm择一定理中(c)的构造方法，
+    假设$\lambda \ne 0$，
+    我们想要利用$T$的紧性推出矛盾.
+    由Riesz引理，
+    存在$u_n \in E_n$，
+    使得$\|u_n\| = 1$且$d(u_n, E_{n-1}) > 1/2$.
+    因此有
+
+    \[
+    T(u_n - u_m) = (T - \lambda_n I)(u_n) - (T - \lambda_m I)(u_m) + \lambda_n u_n - \lambda_m u_m
+    \]
+
+    不妨设$n > m$.
+    注意$(T - \lambda_n I) (u_n) \in E_{n-1}$，
+    $(T - \lambda_n I) (u_m) \in E_{m-1} \subset E_{n-1}$.
+    因此
+
+    \[
+    \| T(u_n - u_m) \| \ge d(\lambda_n u_n , E_{n-1})
+    = |\lambda_n| \cdot d(u_n, E_{n-1}) > |\lambda_n| \cdot 1/2
+    \]
+
+    由于$\lambda_n \to \lambda \ne 0$，
+    当$n$充分大时，
+    有$|\lambda_n| > |\lambda|/2$.
+    此时
+
+    \[
+    \| T(u_n - u_m) \| \ge |\lambda|/2 \cdot 1/2 = |\lambda|/4
+    \]
+
+    这与$T$的紧性矛盾.
+\end{proof}
+
+\begin{remarkbox}
+    \textbf{Remark}：这个结论说明，
+    若$T$是紧算子，
+    则$\sigma (T) \backslash \{0\}$要么是有限集，
+    要么收敛到$0$.
+\end{remarkbox}
+
+\NoteSection{4}{紧自伴算子的谱分解定理}
