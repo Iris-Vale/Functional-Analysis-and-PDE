@@ -1,0 +1,230 @@
+\NoteChapter{4}{Chapter 5 Hilbert空间}
+\NoteSection{1}{Hilbert空间的基本性质}
+
+
+\begin{proposition}
+    Hilbert空间是一致凸空间，
+    因而是自反空间.
+\end{proposition}
+
+\begin{proof}
+    对任意的$\varepsilon >0$，
+    $u,v$满足$\| u \| \le 1, \|v\| \le 1, \| u -v\| > \varepsilon$.
+    由平行四边形恒等式
+
+    \[
+    \left\| \frac{u+v}{2} \right\|^2 = \frac{1}{2}(\|u\|^2 + \| v \|^2) - 
+    \left\| \frac{u-v}{2} \right\|^2 < 1 - \frac{\varepsilon^2}{4}
+    \]
+\end{proof}
+
+\begin{theorem}[点到闭凸集上的投影]
+    设$K \subset H$是非空闭凸集，
+    则对任意的$f \in H$，
+    存在唯一的$u \in K$，
+    使得$\|f-u\|=d(f , K)$.
+    记$u = P_K f$.
+    这样的$u$是$K$中唯一满足如下条件的元素：
+    $$
+    (f-u,v-u) \le 0, \quad v \in K
+    $$
+\end{theorem}
+
+\begin{remarkbox}
+    \textbf{Remark}：
+    对于存在性，
+    有一个简短的证明：
+    考虑函数$\varphi(v) = \| f-v \|$.
+    它是连续的凸函数，
+    当$\left\| v \right\| \to \infty$时，
+    $\varphi(v) \to \infty$.
+    且$H$是自反空间.
+    因此$\varphi$能在$K$上取到最小值.
+    接下来给出一个更直接的证明.
+\end{remarkbox}
+
+\begin{proof}~
+
+    (a) 存在性：取一列$v_n \in K$，
+    使得$d_n = \left\| f-v_n \right\| \to d = \inf_{v \in K} \left\| f - v\right\| $.
+    只需证明$v_n$是柯西列.
+    利用平行四边形恒等式去估计$\left\| v_n - v_m \right\| = \left\| (f - v_n) - (f - v_m) \right\|$即可.
+
+    \smallskip
+
+    (b) 唯一性：
+    只需证明不等式$(f-u , v-u) \le 0$，
+    唯一性便是显然的.
+
+    取$w \in H$，
+    使得对充分小的正数$\varepsilon$，
+    满足$u + \varepsilon w = v\in K$.
+    则$\left\| f - u\right\| \le \left\| f - u - \varepsilon w\right\|$.
+    两边取平方，有
+    \[
+    \left\| f-u  \right\|^2 \le \left\| f-u\right\|^2 - 2 (f-u , \varepsilon w) + \left\| \varepsilon w \right\|^2 
+    \]
+
+    即
+    \[
+    (f-u , w) \le \varepsilon \left\| w \right\|^2
+    \]
+
+    取$\varepsilon \to 0$，则
+    \[
+    (f-u , w) \le 0
+    \]
+
+    这等价于对任意的$v \in K$，
+    \[
+    (f-u , \varepsilon w) = (f-u , v - u) \le 0
+    \]
+\end{proof}
+
+\begin{corollary}
+    设$M \subset H$是闭子空间，
+    $f \in H$，
+    则对于$u \in M$，
+    $u = P_M f$当且仅当$(f-u , v) = 0$对任意$v \in M$成立.
+    此时$P_M$是线性算子，
+    称为正交投影算子.
+\end{corollary}
+
+\NoteSection{2}{Gelfand三元组}
+
+
+\begin{theorem}[Riesz表示定理]
+    对任意的$\varphi \in H^\star$，
+    存在唯一的$f \in H$，
+    使得$\varphi (u) = (f,u) , \forall \in H$.
+    且$\| f \| = \| \varphi \|_{H^\star}$.
+\end{theorem}
+
+Riesz定理表明，
+$H$与$H^{\star}$之间存在一个自然的等距同构，
+从而我们可以把$H$与$H^{\star}$看成完全等同的空间
+（将$H \to H^\star$的等距同构视为恒等映射）.
+但要注意的是，
+这种等同只是在内积结构的意义上等同，
+而不是在集合元素的意义上等同.
+接下来我们通过Gelfand三元组的构造说明这一点，
+并给出一个具体例子.
+
+\smallskip
+
+设$H$是Hilbert空间，
+Banach空间$V$可连续地嵌入$H$，
+从而可以理解为$V \subset H$.
+
+自然地，我们可以将$H^\star$中的元素（线性泛函）限制在$V$上，
+成为$V^\star$中的元素.
+记这个限制映射为$T: H^\star \to V^\star$.
+具体来说，$T$满足
+
+\[
+\langle T\varphi , v \rangle_{V} = 
+\langle \varphi , v \rangle_{H} 
+\]
+
+
+一般来说，$T$不是满射.
+$T$给出了$H^\star \to V^\star$的一个嵌入.
+如果把$H$与$H^\star$视为等同，
+我们有
+
+\[
+V \subset H \cong H^\star \subset V^{\star}
+\]
+
+这就是Gelfand三元组.
+此时，如果我们再假设$V$是Hilbert空间，
+其上定义的内积$(\cdot , \cdot)_V$与$H$的内积不一定相同.
+我们发现不能再将$V$与$V^\star$按$V$上的内积视为等同了，
+这将与$H = H^\star$矛盾.
+当然，$V \to V^\star$的等距同构依然是存在的，
+只不过不能把它看成$V$上的恒等映射了.
+
+\smallskip
+
+一个具体的例子如下.
+设$H$是平方可和序列空间$\ell^2$，
+装备了$\ell^2$的标准内积.
+设$V \subset H$是加权平方可和空间：
+
+\[
+V = \left\{ u = (u_n) , \sum_{n=1}^{\infty} n^2 u_n^2 < \infty \right\}
+\]
+
+其上的内积定义为
+
+\[
+(u , v)_{V} = \sum_{n=1}^\infty n^2 u_n v_n
+\]
+
+
+根据Riesz表示定理，
+对任意的$F \in V^{\star}$，
+存在唯一的$u \in V$，
+使得$\langle F , v \rangle_V = (u , v)_V = \sum_{n=1}^\infty n^2 u_n v_n$.
+特别地，若
+$F = T \varphi$，
+其中$ \varphi \in H^\star = H$，
+考虑到$T$所满足的关系
+
+\[
+\langle T\varphi , v \rangle_{V} = 
+\langle \varphi , v \rangle_{H} = 
+ \sum_{n=1}^\infty n^2 u_n v_n
+\]
+
+$\varphi$作为$H$中元素，
+应为$n^2 u_n$.
+则有$\dfrac{\varphi_n^2}{n^2} = n^2 u_n^2$是可和序列.
+因此，$T: u_n \mapsto n^2 u_n$是$V \to V^\star$的Riesz同构映射.
+$V^\star$应自然地认作
+
+\[
+V^\star = 
+\left\{ f = (f_n) , \quad \sum_{n=1}^{\infty} \frac{1}{n^2} f_n^2 < \infty \right\}
+\]
+
+
+显然，$V$是$V^\star$的真子集.
+
+\NoteSection{3}{Lax-Milgram定理}
+
+\begin{definition}
+    设有双线性形式$a : H \times H \to \mathbb{R}$，
+
+    (i) 若存在常数$C$，
+    使得$|a (u,v) | \le C |u||v|, \quad u , v \in H$
+    则称$a$是连续的.
+
+    (ii) 若存在常数$\alpha$，
+    使得$a(v,v) \ge \alpha |v|^2, \quad v \in H$，
+    则称$a$是强迫的. 
+\end{definition}
+
+\begin{remarkbox}
+    \textbf{Remark}：
+    连续性控制了双线性形式的上界，
+    强迫性控制了双线性形式的下界.
+    既连续又强迫的双线性形式可以看成内积的推广.
+    内积本身也是一种既连续又强迫的双线性形式.
+\end{remarkbox}
+
+\begin{theorem}[Stampacchia定理]
+    设$a$是$H$上的连续强迫双线性形式，
+    $K \subset H$是非空闭凸集.
+    则对任意的$\varphi \in H^\star$，
+    存在唯一的$u \in K$，
+    使得$a(u , v-u) \ge \varphi (v - u)$.
+
+    若$a$还是对称的，
+    则$u$满足上述性质当且仅当$u \in K$且：
+
+    \[
+    \frac{1}{2} a(u,u) - \varphi(u) = \min_{v \in K} \left\{ \frac{1}{2} a(v,v) - \varphi (v) \right\}
+    \]
+\end{theorem}
+

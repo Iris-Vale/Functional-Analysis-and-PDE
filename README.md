@@ -6,4 +6,5 @@ Haim Brezis, *Functional Analysis, Sobolev Spaces and Partial Differential Equat
 
 ## 进度
 
-已更新第六章部分内容（紧算子的基本性质、Fredholm定理、紧算子的谱）。第三章（弱拓扑）和第五章（Hilbert空间）部分内容正在更新（未上传）.
+已更新第五章（Hilbert空间基本性质）和第六章部分内容（紧算子的基本性质、Fredholm定理、紧算子的谱）。
+即将更新：Lax-Milgram定理，紧自伴算子的谱分解定理。
