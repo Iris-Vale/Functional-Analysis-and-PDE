@@ -1,0 +1,290 @@
+\NoteChapter{2}{Chapter 3 弱拓扑}
+
+
+
+\NoteSection{1}{最弱拓扑}
+
+在无穷维空间中，闭且有界的集合通常不是紧集.
+例如，$\ell^2$ 的标准正交基 $(e_n)$ 两两之间的距离为 $\sqrt{2}$，
+因此不含依范数收敛的子列；但对每个连续线性泛函
+$f\in(\ell^2)^\star$，都有 $f(e_n)\to0$.
+弱拓扑的基本想法正是只用连续线性泛函来观察向量，
+以这些数值的收敛代替范数收敛.
+
+\begin{definition}[映射族生成的最弱拓扑]
+    设 $X$ 是集合，$I$ 是指标集，
+    $(Y_i)_{i\in I}$ 是一族拓扑空间，
+    $\phi_i:X\to Y_i$ 是一族映射.
+    由 $(\phi_i)_{i\in I}$ 在 $X$ 上生成的\textbf{最弱拓扑}
+    （也称初始拓扑），是使每个 $\phi_i$ 都连续的最小拓扑.
+    
+\end{definition}
+
+
+这个定义等价于，
+它由所有集合$\phi_i^{-1}(V),\quad i\in I,\quad V\subset Y_i\text{为开集}$
+所生成.
+
+\begin{proposition}[邻域基]
+    在上述最弱拓扑中，点 $x\in X$ 的一个邻域基由集合
+    \[
+        \bigcap_{j=1}^{m}\phi_{i_j}^{-1}(V_j)
+    \]
+    构成，其中 $m<\infty$，且 $V_j$ 是
+    $Y_{i_j}$ 中点 $\phi_{i_j}(x)$ 的邻域.
+\end{proposition}
+
+\begin{proposition}[收敛与连续性的判别]
+    设 $X$ 赋予由 $(\phi_i)_{i\in I}$ 生成的最弱拓扑.
+    \begin{enumerate}
+        \item 序列 $(x_n)$ 收敛于 $x$，当且仅当对每个 $i\in I$，
+        $\phi_i(x_n)\to\phi_i(x)$.
+        \item 若 $Z$ 是拓扑空间，则映射 $\psi:Z\to X$ 连续，
+        当且仅当对每个 $i\in I$，复合映射
+        $\phi_i\circ\psi:Z\to Y_i$ 连续.
+    \end{enumerate}
+\end{proposition}
+
+\begin{proposition}[Hausdorff 性]
+    假设每个 $Y_i$ 都是 Hausdorff 空间.
+    则 $X$ 上的最弱拓扑是 Hausdorff 的，
+    当且仅当映射族 $(\phi_i)_{i\in I}$ 能分离 $X$ 中的点：
+    对任意 $x\ne y$，存在 $i\in I$ 使
+    $\phi_i(x)\ne\phi_i(y)$.
+\end{proposition}
+
+\begin{example}[逐坐标收敛]
+    取 $X=\mathbb{R}^{\mathbb{N}}$，并令
+    $\phi_k(x)=x_k$，其中 $x=(x_1,x_2,\ldots)$.
+    每个 $Y_k=\mathbb{R}$ 都取通常拓扑.
+    由所有坐标映射生成的最弱拓扑就是乘积拓扑，
+    其中的序列收敛正是逐坐标收敛.
+
+    例如，标准基序列 $e_n$ 逐坐标收敛于 $0$，
+    但在通常的 $\ell^2$ 范数下，$\|e_n\|=1$，
+    因而不依范数收敛于 $0$.
+\end{example}
+
+\NoteSection{2}{弱拓扑}
+
+\begin{definition}[弱拓扑]
+    设 $E$ 是 Banach 空间.
+    由所有连续线性泛函 $f\in E^\star$ 在 $E$ 上生成的最弱拓扑，
+    称为 $E$ 上的\textbf{弱拓扑}，记作
+    $\sigma(E,E^\star)$.
+\end{definition}
+
+\begin{proposition}[弱邻域基]
+    点 $x_0\in E$ 的一个弱邻域基由集合
+    \[
+        \bigcap_{j=1}^{m}
+        \left\{x\in E:
+        |f_j(x)-f_j(x_0)|<\varepsilon_j\right\},
+        \qquad f_j\in E^\star,\quad \varepsilon_j>0,
+    \]
+    构成，其中每个邻域只涉及有限多个连续线性泛函.
+\end{proposition}
+
+\begin{remarkbox}
+    \textbf{Remark}：
+    对于弱邻域基内的集合，有一个几何理解：
+    每个集合 $\{x:|f_j(x)-f_j(x_0)|<\varepsilon_j\}$
+    都是以仿射超平面为中轴的一条“直带”.
+    一个基本弱邻域就是有限条直带的交集，
+    因此弱拓扑只能同时限制有限多个线性观测方向.
+\end{remarkbox}
+
+\begin{definition}[弱收敛]
+    设 $x_n,x\in E$.
+    若
+    \[
+        f(x_n)\to f(x)
+        \qquad\text{对每个 }f\in E^\star,
+    \]
+    则称 $x_n$ \textbf{弱收敛}于 $x$，记作
+    $x_n\rightharpoonup x$.
+\end{definition}
+
+\begin{proposition}[弱拓扑与范数拓扑]
+    弱拓扑比范数拓扑粗，并有以下结论：
+    \begin{enumerate}
+        \item 范数收敛必然推出弱收敛；反之通常不成立.
+        \item 弱开集一定是范数开集，弱闭集一定是范数闭集.
+        \item 弱收敛序列必为范数有界序列.
+        \item 若 $x_n\rightharpoonup x$，则
+        \[
+            \|x\|\le\liminf_{n\to\infty}\|x_n\|.
+        \]
+        \item 若 $E$ 是有限维空间，则弱拓扑与范数拓扑相同.
+    \end{enumerate}
+\end{proposition}
+
+\begin{example}[单位球面]
+    在无穷维 Banach 空间中，单位球面
+    $S_E=\{x\in E:\|x\|=1\}$ 是范数闭集，
+    但一般不是弱闭集；它的弱闭包是单位闭球 $B_E$.
+    从邻域的几何形状看，有限条直带的交集不能把原点
+    与整个单位球面分离.
+\end{example}
+
+\NoteSection{3}{弱拓扑与凸集}
+
+对一般集合而言，范数闭与弱闭并不等价；
+凸性使 Hahn--Banach 分离定理能够把两种闭性联系起来.
+
+\begin{theorem}[闭凸集的强闭与弱闭]
+    设 $C\subset E$ 是凸集.
+    则 $C$ 在范数拓扑下闭，当且仅当
+    $C$ 在弱拓扑 $\sigma(E,E^\star)$ 下闭.
+\end{theorem}
+
+\begin{remarkbox}
+    \textbf{核心思想}：
+    若 $x\notin C$ 且 $C$ 是范数闭凸集，
+    Hahn--Banach 分离定理给出一个连续线性泛函，
+    将 $x$ 与 $C$ 分开.
+    由这个泛函可以构造包含 $x$、且与 $C$ 不相交的弱开邻域，
+    因而 $C$ 是弱闭的.
+\end{remarkbox}
+
+\begin{corollary}[Mazur 推论]
+    若 $x_n\rightharpoonup x$，
+    则存在由 $x_n$ 的有限凸组合组成的序列 $(y_n)$，使得
+    $\|y_n-x\|\to0$.
+\end{corollary}
+
+\NoteSection{4}{弱星拓扑与紧性}
+
+\begin{definition}[弱星拓扑]
+    设 $E$ 是 Banach 空间.
+    对每个 $x\in E$，定义取值映射
+    \[
+        J_x:E^\star\to\mathbb{R},
+        \qquad J_x(f)=f(x).
+    \]
+    由所有取值映射 $(J_x)_{x\in E}$ 在 $E^\star$ 上生成的最弱拓扑，
+    称为 $E^\star$ 上的\textbf{弱星拓扑}，记作
+    $\sigma(E^\star,E)$.
+\end{definition}
+
+\begin{proposition}[弱星邻域与弱星收敛]
+    弱星拓扑具有以下性质：
+    \begin{enumerate}
+        \item 点 $f_0\in E^\star$ 的一个弱星邻域基由集合
+        \[
+            \bigcap_{j=1}^{m}
+            \left\{f\in E^\star:
+            |f(x_j)-f_0(x_j)|<\varepsilon_j\right\},
+            \qquad x_j\in E,\quad\varepsilon_j>0,
+        \]
+        构成.
+        \item 序列 $(f_n)$ 弱星收敛于 $f$，当且仅当它逐点收敛：
+        \[
+            f_n\overset{\star}{\rightharpoonup}f
+            \quad\Longleftrightarrow\quad
+            f_n(x)\to f(x)
+            \quad\text{对每个 }x\in E.
+        \]
+        \item $E^\star$ 赋予弱星拓扑后是 Hausdorff 空间.
+    \end{enumerate}
+\end{proposition}
+
+\begin{proposition}[弱拓扑与弱星拓扑的比较]
+    $E^\star$ 上的弱拓扑为
+    $\sigma(E^\star,E^{\star\star})$，
+    弱星拓扑为 $\sigma(E^\star,E)$.
+    弱星拓扑一般比弱拓扑更粗，因此
+    \[
+        f_n\rightharpoonup f
+        \quad\Longrightarrow\quad
+        f_n\overset{\star}{\rightharpoonup}f.
+    \]
+    在有限维空间中，范数拓扑、弱拓扑和弱星拓扑彼此相同.
+\end{proposition}
+
+\begin{theorem}[Banach--Alaoglu 定理]
+    $E^\star$ 的闭单位球
+    $B_{E^\star}=\{f\in E^\star:\|f\|_{E^\star}\le1\}$
+    在弱星拓扑 $\sigma(E^\star,E)$ 下是紧集.
+\end{theorem}
+
+\begin{remarkbox}
+    \textbf{核心思想}：
+    把泛函 $f$ 看成由所有数值 $f(x)$ 组成的坐标表，
+    从而把 $B_{E^\star}$ 嵌入乘积空间 $\mathbb{R}^E$.
+    单位球上的弱星拓扑正是相应的乘积拓扑，
+    而每个坐标都落在一个有界闭区间内.
+    因此可以利用乘积空间的紧性研究 $B_{E^\star}$.
+\end{remarkbox}
+
+\NoteSection{5}{自反空间}
+
+\begin{definition}[典范映射与自反空间]
+    设 $E$ 是 Banach 空间.
+    典范映射 $J:E\to E^{\star\star}$ 定义为
+    \[
+        (Jx)(f)=f(x),
+        \qquad x\in E,\quad f\in E^\star.
+    \]
+    Hahn--Banach 定理保证
+    $\|Jx\|_{E^{\star\star}}=\|x\|_E$，因而 $J$ 是等距嵌入.
+    若 $J$ 是满射，则称 $E$ 为\textbf{自反空间}.
+\end{definition}
+
+\begin{example}[自反与非自反空间]
+    有限维空间、Hilbert 空间以及 $L^p$ 空间
+    （$1<p<\infty$）都是自反空间.
+    $L^1$、$L^\infty$ 以及一般的 $C(K)$ 空间则不是自反空间.
+\end{example}
+
+\begin{theorem}[Kakutani 定理]
+    Banach 空间 $E$ 自反，当且仅当闭单位球 $B_E$
+    在弱拓扑 $\sigma(E,E^\star)$ 下紧.
+\end{theorem}
+
+\NoteSection{6}{可分性与可度量化}
+
+\begin{proposition}[可分性的关系]
+    若 $E^\star$ 可分，则 $E$ 可分.
+\end{proposition}
+
+\begin{proposition}[单位球上拓扑的可度量化]
+    设 $E$ 是 Banach 空间.
+    \begin{enumerate}
+        \item $E$ 可分，当且仅当 $B_{E^\star}$ 上的相对弱星拓扑
+        $\sigma(E^\star,E)$ 可由某个度量产生.
+        \item $E^\star$ 可分，当且仅当 $B_E$ 上的相对弱拓扑
+        $\sigma(E,E^\star)$ 可由某个度量产生.
+    \end{enumerate}
+\end{proposition}
+
+\begin{remarkbox}
+    \textbf{Remark}：
+    “相对拓扑”是把整个空间的开集与所讨论的单位球相交后得到的拓扑.
+    若 $E$ 可分，则 Banach--Alaoglu 定理给出的弱星紧单位球还是可度量的，
+    因而有界对偶序列可以抽出弱星收敛子列.
+\end{remarkbox}
+
+\NoteSection{7}{一致凸性}
+
+\begin{definition}[一致凸空间]
+    Banach 空间 $E$ 称为\textbf{一致凸的}，
+    若对每个 $\varepsilon>0$，存在 $\delta>0$，
+    使得任意 $x,y\in B_E$ 只要满足
+    $\|x-y\|_E\ge\varepsilon$，就有
+    \[
+        \left\|\frac{x+y}{2}\right\|_E\le1-\delta.
+    \]
+\end{definition}
+
+\begin{remarkbox}
+    \textbf{几何理解}：
+    单位球内相距一定距离的两点，其中点必须统一地落入单位球内部.
+    Hilbert 空间和 $L^p$（$1<p<\infty$）是一致凸的；
+    $\ell^1$ 与 $\ell^\infty$ 的单位球含有平边，因此不一致凸.
+\end{remarkbox}
+
+\begin{theorem}[Milman--Pettis 定理]
+    一致凸 Banach 空间是自反空间.
+\end{theorem}
+

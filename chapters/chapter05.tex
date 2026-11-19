@@ -193,6 +193,22 @@ V^\star =
 
 \NoteSection{3}{Lax-Milgram定理}
 
+Lax-Milgram定理是泛函分析和偏微分方程领域的一个基础性定理.
+我们所关心的是偏微分方程转化为弱形式之后的问题，
+有如下的一般形式：
+
+\[
+a(u,v) = \varphi (v) , \forall v \in H
+\]
+
+其中$a$是定义在Hilbert空间上的双线性形式，
+$\varphi$是线性泛函.
+这里，$u$通常代表我们想要求解的系统状态，
+$v$代表任意的测试状态，
+$a(u,v)$代表系统的某种内部能量，
+$\varphi (v)$代表状态$v$在外力$\varphi$下产生的能量.
+
+
 \begin{definition}
     设有双线性形式$a : H \times H \to \mathbb{R}$，
 
@@ -213,13 +229,135 @@ V^\star =
     内积本身也是一种既连续又强迫的双线性形式.
 \end{remarkbox}
 
+\medskip
+
+我们以一维弦振动为例，
+探讨三种数学视角之间的联系：
+偏微分方程、弱形式（变分形式）以及能量泛函极小化.
+
+我们所熟悉的描述是泊松方程：
+
+\[
+-u^2_{xx}(x) = f(x)
+\]
+
+该方程的解当然是二阶可导的函数.
+对函数的光滑度要求很高，
+对计算机来说往往是不易求解的.
+我们借助分部积分来寻找弱解满足的方程：
+将泊松方程的两边同时乘以一个测试函数$v(x)$，
+然后两边积分
+
+\[
+\int -u^2_{xx} \cdot v ~ \mathrm{d}x 
+= \int fv~ \mathrm{d} x
+\]
+
+分部积分，并利用边界项为零
+\[
+\int u_x v_x \mathrm{d}x
+= \int f v ~\mathrm{d}x
+\]
+
+这个方程左边就是关于$u,v$的双线性形式$a(u,v)$，
+右边是关于$v$的线性泛函，
+与本节开头提出的弱形式方程一致.
+这样的方程有什么物理意义呢？
+将$v(x)$看成弦的虚位移，
+则$\varphi(v) = \int fv$就是外力$f$所做的虚功，
+而$a(u,v) = \int u_x v_x $则是弦的弹力所做的虚功.
+因此，
+这个方程所表达是实际上是静力学的虚功原理.
+
+从另一个角度来解读这个方程的物理意义：
+该系统的总能量泛函可以写为
+\[
+J(u) = \frac{1}{2} a(u,u) - \varphi(u)
+\]
+
+当它取泛函极值$\delta J = 0$时，
+通过求泛函导数，
+也可以得到同样的弱形式方程：
+
+\[
+a(u,v) = \varphi (v) 
+\]
+
+表明虚功原理可以从能量泛函极小化推出.
+Lax-Milgram定理不仅阐述了这一关系，
+而且指出了弱解$u$的存在唯一性.
+
+\begin{theorem}[Lax-Milgram定理]
+    设$a$是$H$上的连续强迫双线性形式.
+    则对任意的$\varphi \in H^\star$，
+    存在唯一的$u \in H$，
+    使得$a(u , v) = \varphi (v), \forall v \in H$.
+
+    若$a$还是对称的，
+    则$u$满足上述性质当且仅当：
+
+    \[
+    \frac{1}{2} a(u,u) - \varphi(u) = \min_{v \in H} \left\{ \frac{1}{2} a(v,v) - \varphi (v) \right\}
+    \]
+\end{theorem}
+
+
+\begin{proof}~
+
+    (1)~
+    对于固定的$u$，
+    $v \mapsto a(u,v)$可以看成$H$上的线性泛函.
+    根据Riesz表示定理，
+    存在$u^\star \in H$，
+    使得$a(u,v) = (u^\star , v)$.
+    记映射$A: u \mapsto u^\star$，
+    则$a(u,v) = (Au , v)$.
+
+    显然$A$是线性算子（由$a$的连续性还可知它是有界线性算子）.
+    由$a$的强迫性：
+
+    \[
+    \left\| Ax \right\| \left\| x \right\| \ge  (Ax, x)
+    \ge \alpha \left\| x \right\|^2
+    ~ \Rightarrow ~
+    \left\| Ax \right\| \ge \alpha \left\| x \right\|
+    \]
+
+    此不等式表明$A$是单射，
+    因此存在逆算子$A^{-1} : R(A) \to H$
+    （可以证明$A^{-1}$是有界线性算子）.
+
+    又根据Riesz表示定理，
+    对任给的线性泛函$\varphi$，
+    存在$f_{\varphi} \in H$，
+    使得$\varphi (v) = (f_{\varphi} , v)$.
+    现在考虑方程$(Au,v) = (f_{\varphi} , v)$，
+    若对任意的$v \in H$成立，
+    则$Au = f_{\varphi}$，
+    $u = A^{-1} f_{\varphi}$.
+
+    \smallskip
+
+    (2)~定理后半部分的变分推导在前文中给出.
+\end{proof}
+
+\medskip
+
+为了与5.1节所讲的点到凸集的距离问题联系起来
+（作为一种优化思想），
+这里继续介绍一个更一般的情形：Stampacchia定理.
+这个定理将$v$限制在闭凸集$K$中，
+并把变分等式改为变分不等式.
+借助这个定理及其证明，
+我们从另一个角度重新理解Lax-Milgram定理（回顾点到凸集的投影定理）.
+
+
 \begin{theorem}[Stampacchia定理]
     设$a$是$H$上的连续强迫双线性形式，
     $K \subset H$是非空闭凸集.
-    则对任意的$\varphi \in H^\star$，
+    则对任意给定的$\varphi \in H^\star$，
     存在唯一的$u \in K$，
-    使得$a(u , v-u) \ge \varphi (v - u)$.
-
+    使得$a(u , v-u) \ge \varphi (v - u), \forall v \in K$.
     若$a$还是对称的，
     则$u$满足上述性质当且仅当$u \in K$且：
 
@@ -227,4 +365,93 @@ V^\star =
     \frac{1}{2} a(u,u) - \varphi(u) = \min_{v \in K} \left\{ \frac{1}{2} a(v,v) - \varphi (v) \right\}
     \]
 \end{theorem}
+
+\begin{proof}
+    ~
+
+    (1)~
+    线性算子$A$的定义和性质同Lax-Milgram定理的证明.
+    现在我们想证明存在唯一的$u \in K$，
+    使得
+    \[
+    (Au , v-u) \ge (f_{\varphi} , v-u) , \quad \forall v \in K
+    \]
+
+    即$(\rho(f_{\varphi} - Au) , v - u) \ge 0$，
+    其中$\rho > 0$是待定的常数.
+    回顾点到凸集的投影定理，
+    这可以视为距离最小化的不等式条件，
+    即$u$是一个点到$K$的投影：$u = P_K (\rho f - \rho A u + u)$.
+
+    为了证明这个方程的解存在且唯一，我们考虑用Banach不动点定理.
+    记映射$S: u \mapsto P_{K} (\rho f - \rho A u + u)$，
+    则该方程可改写为$u = S u$.
+    只需证明$S$是压缩映射.
+
+    注意投影映射$P_K$只可能缩短两点之间的距离，而不可能拉长.
+    我们有
+    \begin{align*}
+        |S u_1 - S u_2 | &= |P_{K} (\rho f - \rho A u_1 + u_1) - P_{K}(\rho f - \rho A u_2 + u_2)| \\
+        &\le |(u_1 - u_2) - \rho A (u_1 - u_2)|
+    \end{align*}
+
+    因为$A$是有界线性算子，
+    只要取合适的$\rho>0$，
+    就能使$S$是压缩映射，
+    从而满足要求的$u$存在且唯一.
+
+    \medskip
+
+    (2)~若$a$对称，
+    则$a(\cdot , \cdot)$是一个内积，
+    它诱导了一个新范数$\left\| \cdot \right\|_a = \sqrt{ a (\cdot , \cdot)}$.
+    由Riesz表示定理，
+    对任给的$\varphi$，
+    存在$g_{\varphi} \in H$，
+    使得$\varphi (v) = a(g_{\varphi} , v)$.
+    变分不等式可改写成
+    \[
+    a(g_{\varphi} - u , v -u) \le 0 , \quad v \in K
+    \]
+
+    这恰是$g_{\varphi}$到凸集$K$的距离最小化的等价条件，
+    即$u$满足：
+    \[
+    \left\| g_{\varphi} - u \right\|_a 
+    = \min_{v \in K} \left\| g_{\varphi} - v  \right\|_a
+    \]
+
+    我们计算距离函数$v \mapsto \left\| g_{\varphi} - v  \right\|_a$最小化的等价条件.
+    \begin{align*}
+        \left\| g_{\varphi} - v  \right\|_a
+    &= \sqrt{
+        a (g_{\varphi} - v , g_{\varphi} - v )
+    } \\
+    &= \sqrt{
+        a(g_{\varphi} ,g_{\varphi} ) - 2 a(g_{\varphi} , v) + a(v,v)
+    } \\
+    &= \sqrt{
+        a(g_{\varphi} ,g_{\varphi} ) - 2 \varphi (v) + a(v,v)
+    }
+    \end{align*}
+
+    可见，
+    距离函数$\left\| g_{\varphi} - v  \right\|_a$最小化与函数
+    $- \varphi (v) + \dfrac{1}{2} a(v,v)$最小化是等价的.
+    相应地，
+    $u$满足
+    \begin{align*}
+        \frac{1}{2} a(u,u) - \varphi(u) = \min_{v \in K} \left\{ \frac{1}{2} a(v,v) - \varphi (v) \right\}
+    \end{align*}
+\end{proof}
+
+可以发现，
+Lax-Milgram定理讨论是同一个优化问题，
+只不过定理中的$K = H$.
+此时，必然有$g_{\varphi} \in K$，
+$g_{\varphi}$到$K$的距离为零，
+因此投影点$u = P_{K} (g_{\varphi}) = g_{\varphi}$就是其本身.
+
+
+
 
